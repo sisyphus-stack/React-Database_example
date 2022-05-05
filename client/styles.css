@@ -9,7 +9,7 @@
   padding: 10px;
 }
 
-.mew-form, .loading {
+.data-form, .loading {
   width: 50%;
   margin: 0 auto;
 }
@@ -18,26 +18,26 @@
   text-align: center;
 }
 
-.mews {
+.data {
   width: 80%;
   margin: 0 auto;
 }
 
-.mews > div {
+.data > div {
   background: hsl(0, 0%, 95%);
   padding: 12px;
   border-radius: 4px;
 }
 
-.mews > div > h3 {
+.data > div > h3 {
   word-wrap: break-word;
 }
 
-.mews > div > p {
+.data > div > p {
   word-wrap: break-word;
 }
 
-.mews > div:not(:last-child) {
+.data > div:not(:last-child) {
   margin-bottom: 8px;
 }
 

@@ -16,7 +16,7 @@ const app = express();
 const db = monk('localhost/database_example');
 
 //get database_1 collection
-const mews = db.get('database_1');
+const data = db.get('database_1');
 
 //initialize cors using express app
 app.use(cors());
@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 //Pulls prior messages from database_1 for displaying onto index.html
-//(under "mew" div)
+//(under "data" div)
 app.get('/database_1', (req, res, next) => {
   let { skip = 0, limit = 5, sort = 'desc' } = req.query;
   skip = parseInt(skip) || 0;
@@ -42,9 +42,9 @@ app.get('/database_1', (req, res, next) => {
   limit = Math.min(50, Math.max(1, limit));
 
   Promise.all([
-    mews
+    data
       .count(),
-    mews
+    data
       .find({}, {
         skip,
         limit,
@@ -53,9 +53,9 @@ app.get('/database_1', (req, res, next) => {
         }
       })
   ])
-    .then(([ total, mews ]) => {
+    .then(([ total, data ]) => {
       res.json({
-        mews,
+        data,
         meta: {
           total,
           skip,
@@ -67,22 +67,22 @@ app.get('/database_1', (req, res, next) => {
 });
 
 //Checks to see if message meets parameters
-function isValidMew(mew) {
-  return mew.content && mew.content.toString().trim() !== '' && mew.content.toString().trim().length <= 140;
+function isValidData(data) {
+  return data.content && data.content.toString().trim() !== '' && data.content.toString().trim().length <= 140;
 }
 
 //Creates new message to submit to database
-const createMew = (req, res, next) => {
-  if (isValidMew(req.body)) {
-    const mew = {
+const createData = (req, res, next) => {
+  if (isValidData(req.body)) {
+    const data = {
       content: req.body.content.toString().trim(),
       created: new Date()
     };
 
-    mews
-      .insert(mew)
-      .then(createdMew => {
-        res.json(createdMew);
+    data
+      .insert(data)
+      .then(createdData => {
+        res.json(createdData);
       }).catch(next);
   } else {
     res.status(422);
@@ -93,7 +93,7 @@ const createMew = (req, res, next) => {
 };
 
 //Posts new message to http://localhost:5000/database_1 
-app.post('/database_1', createMew);
+app.post('/database_1', createData);
 
 //Throws error message
 app.use((error, req, res, next) => {

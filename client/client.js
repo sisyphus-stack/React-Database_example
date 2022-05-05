@@ -7,7 +7,7 @@ const errorElement = document.querySelector('.error-message');
 //defines loading element (loading.gif)
 const loadingElement = document.querySelector('.loading');
 
-const mewsElement = document.querySelector('.mews');
+const dataElement = document.querySelector('.data');
 const loadMoreElement = document.querySelector('#loadMore');
 const API_URL = 'http://localhost:5000/database_1';
 
@@ -25,7 +25,7 @@ document.addEventListener('scroll', () => {
   }
 });
 
-listAllMews();
+listAllData();
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -37,13 +37,13 @@ form.addEventListener('submit', (event) => {
     //form.style.display = 'none';
     loadingElement.style.display = '';
 
-    const mew = {
+    const data = {
       content
     };
     
     fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify(mew),
+      body: JSON.stringify(data),
       headers: {
         'content-type': 'application/json'
       }
@@ -61,7 +61,7 @@ form.addEventListener('submit', (event) => {
       setTimeout(() => {
         form.style.display = '';
       }, 30000);
-      listAllMews();
+      listAllData();
     }).catch(errorMessage => {
       form.style.display = '';
       errorElement.textContent = errorMessage;
@@ -76,32 +76,32 @@ form.addEventListener('submit', (event) => {
 
 function loadMore() {
   skip += limit;
-  listAllMews(false);
+  listAllData(false);
 }
 
-function listAllMews(reset = true) {
+function listAllData(reset = true) {
   loading = true;
   if (reset) {
-    mewsElement.innerHTML = '';
+    dataElement.innerHTML = '';
     skip = 0;
     finished = false;
   }
   fetch(`${API_URL}?skip=${skip}&limit=${limit}`)
     .then(response => response.json())
     .then(result => {
-      result.mews.forEach(mew => {
+      result.data.forEach(data => {
         const div = document.createElement('div');
 
         const contents = document.createElement('p');
-        contents.textContent = mew.content;
+        contents.textContent = data.content;
 
         const date = document.createElement('small');
-        date.textContent = new Date(mew.created);
+        date.textContent = new Date(data.created);
 
         div.appendChild(contents);
         div.appendChild(date);
 
-        mewsElement.appendChild(div);
+        dataElement.appendChild(div);
       });
       loadingElement.style.display = 'none';
       if (!result.meta.has_more) {

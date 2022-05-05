@@ -7,7 +7,7 @@ const errorElement = document.querySelector('.error-message');
 //defines loading element (loading.gif)
 const loadingElement = document.querySelector('.loading');
 
-const dataElement = document.querySelector('.data');
+const dataElement = document.querySelector('.database');
 const loadMoreElement = document.querySelector('#loadMore');
 const API_URL = 'http://localhost:5000/database_1';
 
@@ -34,7 +34,6 @@ form.addEventListener('submit', (event) => {
 
   if (content.trim()) {
     errorElement.style.display = 'none';
-    //form.style.display = 'none';
     loadingElement.style.display = '';
 
     const data = {

@@ -66,7 +66,7 @@ app.get('/database_1', (req, res, next) => {
     }).catch(next);
 });
 
-//Checks to see if message meets parameters
+//Checks to see if entered message meets parameters
 function isValidData(data) {
   return data.content && data.content.toString().trim() !== '' && data.content.toString().trim().length <= 140;
 }
@@ -74,13 +74,13 @@ function isValidData(data) {
 //Creates new message to submit to database
 const createData = (req, res, next) => {
   if (isValidData(req.body)) {
-    const data = {
+    const message = {
       content: req.body.content.toString().trim(),
       created: new Date()
     };
 
     data
-      .insert(data)
+      .insert(message)
       .then(createdData => {
         res.json(createdData);
       }).catch(next);

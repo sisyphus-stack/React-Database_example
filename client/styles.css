@@ -18,26 +18,26 @@
   text-align: center;
 }
 
-.data {
+.database {
   width: 80%;
   margin: 0 auto;
 }
 
-.data > div {
+.database > div {
   background: hsl(0, 0%, 95%);
   padding: 12px;
   border-radius: 4px;
 }
 
-.data > div > h3 {
+.database > div > h3 {
   word-wrap: break-word;
 }
 
-.data > div > p {
+.database > div > p {
   word-wrap: break-word;
 }
 
-.data > div:not(:last-child) {
+.database > div:not(:last-child) {
   margin-bottom: 8px;
 }
 
